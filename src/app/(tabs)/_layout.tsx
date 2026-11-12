@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 
 export default function RootLayout() {
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <Tabs>
@@ -15,10 +15,16 @@ export default function RootLayout() {
           options={{ title: "explore", headerShown: false }}
         />
       </Tabs.Protected>
-
+      <Tabs.Screen
+        name="cart"
+        options={{ title: "Cart", headerShown: false }}
+      />
       <Tabs.Screen
         name="(profile)"
-        options={{ title: "Profile", headerShown: false }}
+        options={{
+          title: "Profile",
+          headerShown: false,
+        }}
       />
     </Tabs>
   );
