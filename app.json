@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "learnging-react-native-expo",
+    "name": "Learn React Native Expo",
     "slug": "learnging-react-native-expo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,7 +8,10 @@
     "scheme": "learngingreactnativeexpo",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +20,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.thihalinn.learnreactnativeexpo"
     },
     "web": {
       "output": "server",
@@ -37,17 +41,29 @@
         "expo-font",
         {
           "fonts": [
-            "PatrickHand-Regular.ttf",
-            "@/assets/fonts/Roboto-VariableFont_wdth,wght.ttf"
+            "./assets/fonts/PatrickHand-Regular.ttf",
+            "./assets/fonts/Roboto-VariableFont_wdth,wght.ttf"
           ]
         }
       ],
       "expo-image",
-      "expo-asset"
+      "expo-asset",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "b12717ea-cf91-4f91-8ce3-6023ab99c9f5"
+      }
+    },
+    "owner": "thihalinn"
   }
 }

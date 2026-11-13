@@ -1,30 +1,66 @@
-import { Image } from "expo-image";
-import { Text } from "react-native";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
+import { Button, TextInput } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 export default function Cart() {
   const insects = useSafeAreaInsets();
+  const [form, setFrom] = useState<{ name: string; age: number }>({
+    name: "",
+    age: 0,
+  });
+
+  const saveToAsyncStorage = async () => {
+    try {
+      await AsyncStorage.setItem("person", JSON.stringify(form));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     // <View style={{ flex: 1, paddingTop: insects.top }}>
     <SafeAreaView>
-      <Text>Cart</Text>
-      <Image
-        source={require("@/assets/images/android-icon-foreground.png")}
-        style={{ width: 200, height: 200 }}
-      />
-      <Image
-        source={{
-          uri: "https://images.unsplash.com/5/unsplash-kitsune-4.jpg?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bc01c83c3da0425e9baa6c7a9204af81",
-        }}
-        style={{
-          width: 200,
-          height: 200,
-          resizeMode: "contain",
-          backgroundColor: "red",
-        }}
-      />
+      <ThemedView>
+        <ThemedText style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          Hello {form?.name}
+        </ThemedText>
+        <TextInput
+          style={{
+            marginHorizontal: 30,
+            marginVertical: 10,
+            borderWidth: 0.5,
+            padding: 10,
+            borderRadius: 5,
+          }}
+          placeholder="Type Name"
+          defaultValue={form?.name}
+          onChangeText={(name) => setFrom({ ...form, name: name })}
+        ></TextInput>
+        <TextInput
+          style={{
+            marginHorizontal: 30,
+            marginVertical: 10,
+            borderWidth: 0.5,
+            padding: 10,
+            borderRadius: 5,
+          }}
+          inputMode="numeric"
+          placeholder="Type Age"
+          defaultValue={form.age.toString()}
+          onChangeText={(text) => {
+            const age = parseInt(text) || 0;
+            setFrom({ ...form, age });
+          }}
+        ></TextInput>
+        <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Button title="Save to Async Store" onPress={saveToAsyncStorage} />
+        </ThemedView>
+      </ThemedView>
     </SafeAreaView>
 
     // </View>

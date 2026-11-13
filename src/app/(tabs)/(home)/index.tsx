@@ -1,27 +1,60 @@
 import { ThemedText } from "@/components/themed-text";
-import { Link, useRouter } from "expo-router";
-import { Button, View } from "react-native";
+import { ThemedView } from "@/components/themed-view";
+import { useCount } from "@/provider/countContext";
+import { useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { useState } from "react";
+import { Button, TextInput } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const [text, setText] = useState("");
+  const { count, increase, decrease } = useCount();
   const router = useRouter();
 
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <ThemedText style={{ fontFamily: "Roboto" }}>Home</ThemedText>
-      <ThemedText style={{ fontFamily: "PatrickHand" }}>Home</ThemedText>
+  const saveToSecureStore = async () => {
+    await SecureStore.setItemAsync("name", text);
+  };
 
-      <ThemedText>
-        <Link href={"/detail?id=5"}>Detail</Link>
-      </ThemedText>
-      <ThemedText>
-        <Link href={"/setting/david"}>Setting</Link>
-      </ThemedText>
-      <Button
-        title="Go to Detail"
-        onPress={() =>
-          router.navigate({ pathname: "/detail", params: { id: 1 } })
-        }
-      />
-    </View>
+  return (
+    <SafeAreaView>
+      <ThemedView>
+        <ThemedText style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          Hello {text}
+        </ThemedText>
+        <TextInput
+          style={{
+            marginHorizontal: 30,
+            marginVertical: 10,
+            borderWidth: 0.5,
+            padding: 10,
+            borderRadius: 5,
+          }}
+          placeholder="Type here"
+          defaultValue={text}
+          onChangeText={(text) => {
+            setText(text);
+          }}
+        ></TextInput>
+        <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Button title="Save to secure Store" onPress={saveToSecureStore} />
+        </ThemedView>
+        <ThemedText style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          Count: {count}
+        </ThemedText>
+        <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Button title="Increase" onPress={increase} />
+        </ThemedView>
+        <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
+          <Button title="Decrease" onPress={decrease} />
+        </ThemedView>
+      </ThemedView>
+      <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
+        <Button
+          title="Go to Detail Page"
+          onPress={() => router.push("/detail?id=1")}
+        />
+      </ThemedView>
+    </SafeAreaView>
   );
 }
