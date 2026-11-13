@@ -16,6 +16,10 @@ export default function RootLayout() {
         />
       </Tabs.Protected>
       <Tabs.Screen
+        name="(storage)"
+        options={{ title: "Storage", headerShown: false }}
+      />
+      <Tabs.Screen
         name="cart"
         options={{ title: "Cart", headerShown: false }}
       />

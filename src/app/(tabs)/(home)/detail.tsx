@@ -61,10 +61,10 @@ export default function Detail() {
         Age: {value?.age}
       </ThemedText>
       <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Button title="Get from secure Store" onPress={getFromAsyncStorage} />
+        <Button title="Get from Async Store" onPress={getFromAsyncStorage} />
       </ThemedView>
       <ThemedView style={{ marginHorizontal: 30, marginVertical: 10 }}>
-        <Button title="Save to secure Store" onPress={getFromAsyncStorage} />
+        <Button title="Save to Async Store" onPress={getFromAsyncStorage} />
       </ThemedView>
     </View>
   );
